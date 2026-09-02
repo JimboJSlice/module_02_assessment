@@ -1,6 +1,10 @@
+import os
+
 from flask import Flask, render_template
 
 app = Flask(__name__)
+app.secret_key = os.environ['SECRET_KEY']
+
 
 @app.route("/")
 def home():
@@ -13,6 +17,9 @@ def trips():
 @app.route("/about")
 def about():
     return render_template("about.html")
+
+if __name__ == "__main__":
+    app.run(debug=True, port=8000)
 
 # Functions
 
