@@ -1,11 +1,23 @@
 body {
-    background-color: #40a6d2;
+    background-color: #e7ecee;
     color: #212529;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar-brand {
+    color: #198754;
+}
+
+.navbar-brand:hover {
+    color: #ebf314;
 }
 
 .nav-link {
     color: #0a531c;
     margin: 0 8px;
+}
+
+footer {
+    margin-top: 80px;
 }
 
