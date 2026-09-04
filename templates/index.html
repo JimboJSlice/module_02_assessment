@@ -1,14 +1,23 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block title %}
+<title>Home</title>
+{% endblock %} {% block content %}
 
-{% block title %}
-    <title>Home</title>
-{% endblock %}
+<section class="container py-5">
+  <div class="col-md-8">
+    <p class="text-success fw-semibold mb-2">YOUR DASHBOARD</p>
+    <h1 class="" display-5 fw-bold mb-2>Welcome, {{ user_name }}</h1>
+    <p class="lead text-muted mb-0">Where are you going to next?</p>
 
-{% block content %}
+    <div class="col-md-4 text-md-end mt-4 mt-md-0">
+      <a
+        href="{{ url_for('create_trip') }}"
+        class="btn btn-success btn-lg px-4"
+        >Plan a new trip</a
+      >
+    </div>
+  </div>
+</section>
 
-<div class="container py-5">
-    <h1>Welcome (name))</h1>
-    <p>Where are you going to next?</p>
 
-</div>
+
 {% endblock %}

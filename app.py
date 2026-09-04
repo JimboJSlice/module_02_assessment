@@ -5,6 +5,8 @@ from flask import Flask, render_template
 app = Flask(__name__)
 app.secret_key = os.environ['SECRET_KEY']
 
+user_name = "James"
+
 
 @app.route("/")
 def home():
@@ -13,6 +15,10 @@ def home():
 @app.route("/trips")
 def trips():
     return render_template("trips.html")
+
+@app.route("/create_trip")
+def create_trip():
+    return render_template("create_trip.html")
 
 @app.route("/about")
 def about():
