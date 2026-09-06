@@ -1,11 +1,50 @@
-{% extends "base.html" %} {% block title %}<title>Plan a new trip</title>{% endblock %} {%
-block content %}
+{% extends "base.html" %} {% block title %}<title>Plan a new trip</title>{%
+endblock %} {% block content %}
 
 <div class="container py-5">
   <div class="row justify-content-center mb-5">
     <div class="col-lg-8 text-center">
       <p class="text-success fw-semibold mb-2">START YOUR NEXT ADVENTURE</p>
       <h1 class="display-5 fw-bold mb-3">Plan a new trip</h1>
+      <p class="lead text-muted">
+        Add the basic detials for your trip. For example, add your itinerary,
+        buget, and imagers (memories).
+      </p>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-4 p-lg-5">
+          <form method="POST" action="{{ url_for('create_trip') }}">
+            <div class="mb-4">
+              <label for="destination" class="form-label fw-semibold">
+                Where are you going?
+              </label>
+              <div class="input-group">
+                <span class="input-group-text bg-white"> </span>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="destination"
+                  placeholder="e.g. Dublin, Ireland"
+                  required
+                />
+              </div>
+              <div class="form-text">
+                Enter the city and country you're planning to visit.
+              </div>
+              <div class="row g-3 mb-4">
+                <div class="col-mb-6">
+                  <label for="start_date" class="form-label fw-semibold"
+                    >Start Date</label
+                  >
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 </div>

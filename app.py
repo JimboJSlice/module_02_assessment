@@ -34,7 +34,7 @@ def trip_details(trip_id):
     for trip in trips:
         if trip["id"] == trip_id:
             selected_trip = trip
-            break
+    #create a 404 page
 
     return render_template("trip.html", trip=selected_trip)
 
@@ -51,8 +51,6 @@ if __name__ == "__main__":
 
 # Functions
 
-# 
-# Display trips()
 # create a trip()
 # itinerary ()
 # budget()
