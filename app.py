@@ -1,6 +1,7 @@
 import os
 
 from flask import Flask, render_template
+from trip_data import trips
 
 app = Flask(__name__)
 app.secret_key = os.environ['SECRET_KEY']
@@ -10,9 +11,32 @@ app.secret_key = os.environ['SECRET_KEY']
 def home():
     return render_template("index.html", user_name="Yoni")
 
-@app.route("/trips")
-def trips():
-    return render_template("trips.html")
+@app.route("/all_trips")
+def all_trips():
+    upcoming_trips = []
+    planning_trips = []
+    completed_trips = []
+
+    for trip in trips:
+        if trip["status"] == "Upcoming":
+            upcoming_trips.append(trip)
+        if trip["status"] == "Planning":
+            planning_trips.append(trip)
+        if trip["status"] == "Completed":
+            completed_trips.append(trip)
+
+    return render_template("all_trips.html", trips=trips, upcoming_trips=upcoming_trips, planning_trips=planning_trips,completed_trips=completed_trips)
+
+@app.route("/trip/<int:trip_id>")
+def trip_details(trip_id):
+
+    selected_trip = None
+    for trip in trips:
+        if trip["id"] == trip_id:
+            selected_trip = trip
+            break
+
+    return render_template("trip.html", trip=selected_trip)
 
 @app.route("/create_trip")
 def create_trip():

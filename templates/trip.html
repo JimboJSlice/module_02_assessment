@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title%}{{ trip.destination }}{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <a href="{{ url_for('all_trips') }}" class="text-success">Back to My Trips</a>
+
+    <div class="mt-4">
+        <h1 class="fw-bold">{{ trip.destination }}</h1>
+        <p class="text-muted">
+            {{ trip.start_date }} - {{ trip.end_date }}
+        </p>
+
+        <p>
+            {{ trip.destination}}
+        </p>
+    </div>
+</div>
+
+{% endblock %}
