@@ -22,7 +22,6 @@ endblock %} {% block content %}
                 Where are you going?
               </label>
               <div class="input-group">
-                <span class="input-group-text bg-white"> </span>
                 <input
                   type="text"
                   class="form-control"
@@ -39,7 +38,78 @@ endblock %} {% block content %}
                   <label for="start_date" class="form-label fw-semibold"
                     >Start Date</label
                   >
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="start_date"
+                    name="start_date"
+                    required
+                  />
                 </div>
+                <div class="col-md-6">
+                  <label for="end_date" class="form-label fw-semibold">
+                    End Date
+                  </label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="end_date"
+                    name="end_date"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="mb-4">
+                <label for="budget" class="form-label fw-semibold">
+                  Trip Budget
+                </label>
+                <div class="input-group">
+                  <span class="input-group-text bg-white"> € </span>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="budget"
+                    placeholder="e.g. 1200"
+                    required
+                  />
+                </div>
+                <div class="form-text">Enter your estimated total budget.</div>
+              </div>
+              <div class="mb-4">
+                <label for="description" class="form-label fw-semibold">
+                  About this trip.
+                </label>
+                <textarea
+                  class="form-control"
+                  id="description"
+                  name="description"
+                  rows="4"
+                  placeholder="What are you going to be doing?"
+                ></textarea>
+              </div>
+              <div class="mb-4">
+                <label for="trip-type" class="form-label fw-semibold">
+                  What type of trip is it?
+                </label>
+                <select class="form-select" id="trip_type" name="trip_type">
+                  <option value="Holiday">Holiday</option>
+                  <option value="City Break">City Break</option>
+                  <option value="Road Trip">Road Trip</option>
+                  <option value="Adventure">Adventure</option>
+                  <option value="Business">Business</option>
+                  <option name="Other">Other</option>
+                </select>
+              </div>
+              <div class="d-flex flex-column flex-sm-row gap-3 pt-3">
+                <a
+                  href="{{ url_for('all_trips' )}}"
+                  class="btn btn-outline-secondary btn-lg flex-fill"
+                >
+                  Cancel</a
+                >
+                <button type="submit" class="btn btn-success bt-lg flex-fill">
+                  Create Trip
+                </button>
               </div>
             </div>
           </form>
