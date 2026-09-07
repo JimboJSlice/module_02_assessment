@@ -26,6 +26,7 @@ endblock %} {% block content %}
                   type="text"
                   class="form-control"
                   id="destination"
+                  name="destination"
                   placeholder="e.g. Dublin, Ireland"
                   required
                 />
@@ -69,6 +70,7 @@ endblock %} {% block content %}
                     type="number"
                     class="form-control"
                     id="budget"
+                    name="budget"
                     placeholder="e.g. 1200"
                     required
                   />
@@ -97,7 +99,7 @@ endblock %} {% block content %}
                   <option value="Road Trip">Road Trip</option>
                   <option value="Adventure">Adventure</option>
                   <option value="Business">Business</option>
-                  <option name="Other">Other</option>
+                  <option value="Other">Other</option>
                 </select>
               </div>
               <div class="d-flex flex-column flex-sm-row gap-3 pt-3">

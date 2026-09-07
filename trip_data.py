@@ -72,7 +72,7 @@ trips = [
         "budget": 1000.00,
         "trip_type": "Weekend Getaway",
         "description": "A relaxing city break discovering Lisbon's colourful streets, viewpoints and food.",
-        "image": "lisbon.jpg",
+        "image": "lisbon.jpeg",
         "status": "Planning",
 
         "activities": [
@@ -120,7 +120,7 @@ trips = [
         "budget": 1200.00,
         "trip_type": "City Break",
         "description": "A memorable trip exploring Madrid's museums, parks, restaurants and nightlife.",
-        "image": "madrid.jpg",
+        "image": "madrid.jpeg",
         "status": "Completed",
 
         "activities": [

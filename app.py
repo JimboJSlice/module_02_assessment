@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
 from trip_data import trips
 
 app = Flask(__name__)
@@ -38,8 +38,34 @@ def trip_details(trip_id):
 
     return render_template("trip.html", trip=selected_trip)
 
-@app.route("/create_trip")
+@app.route("/all_trips/new", methods=["GET", "POST"])
 def create_trip():
+
+    if request.method == "POST":
+
+        destination = request.form["destination"]
+        start_date = request.form["start_date"]
+        end_date = request.form["end_date"]
+        budget = request.form["budget"]
+        description = request.form["description"]
+        trip_type = request.form["trip_type"]
+
+        new_trip = {
+            "id": len(trips) + 1,
+            "destination": destination,
+            "start_date": start_date,
+            "end_date": end_date,
+            "budget": float(budget),
+            "description": description,
+            "trip_type": trip_type,
+            "status": "Planning",
+            "image": "default-trip.jpg"
+        }
+
+        trips.append(new_trip)
+
+        return redirect(url_for("all_trips"))
+
     return render_template("create_trip.html")
 
 @app.route("/about")
