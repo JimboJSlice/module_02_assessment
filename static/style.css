@@ -21,3 +21,18 @@ footer {
     margin-top: 80px;
 }
 
+/* Trip Page */
+
+.trip-detail-image {
+    min-height: 420px;
+    object-fit: cover;
+}
+
+.memory-image {
+    height: 220px;
+    object: cover;
+}
+
+.progress {
+    background-color: #e9ecef;
+}

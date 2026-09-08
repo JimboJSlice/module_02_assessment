@@ -59,7 +59,10 @@ def create_trip():
             "description": description,
             "trip_type": trip_type,
             "status": "Planning",
-            "image": "default-trip.jpg"
+            "image": "default-trip.jpg",
+            "ativities": [],
+            "expenses": [],
+            "memories": [],
         }
 
         trips.append(new_trip)
