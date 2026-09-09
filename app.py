@@ -34,7 +34,6 @@ def trip_details(trip_id):
     for trip in trips:
         if trip["id"] == trip_id:
             selected_trip = trip
-    #create a 404 page
 
     return render_template("trip.html", trip=selected_trip)
 
@@ -49,6 +48,32 @@ def create_trip():
         budget = request.form["budget"]
         description = request.form["description"]
         trip_type = request.form["trip_type"]
+        activity_days = request.form.getlist("activity_day")
+        activity_times = request.form.getlist("activity_time")
+        activity_names = request.form.getlist("activity_name")
+        expense_categories = request.form.getlist("expense_category") 
+        expense_descriptions = request.form.getlist("expense_description") 
+        expense_amounts = request.form.getlist("expense_amount") 
+
+        activities =[]
+
+        for position in range(len(activity_names)):
+            if activity_names[position]:
+                activities.append({"day": int(activity_days[position]),
+                                   "time": activity_times[position],
+                                    "activity": activity_names[position],
+                                    "completed": False
+                                   })
+
+
+        expenses = [] 
+
+        for position in range(len(expense_descriptions)): 
+            if expense_descriptions[position] and expense_amounts[position]: 
+                expenses.append({ "category": expense_categories[position], 
+                                 "description": expense_descriptions[position], 
+                                 "amount": float(expense_amounts[position]) 
+                                 })
 
         new_trip = {
             "id": len(trips) + 1,
@@ -60,8 +85,8 @@ def create_trip():
             "trip_type": trip_type,
             "status": "Planning",
             "image": "default-trip.jpg",
-            "ativities": [],
-            "expenses": [],
+            "activities": activities,
+            "expenses": expenses,
             "memories": [],
         }
 
@@ -77,15 +102,3 @@ def about():
 
 if __name__ == "__main__":
     app.run(debug=True, port=8000)
-
-# Functions
-
-# create a trip()
-# itinerary ()
-# budget()
-# calculate_total()
-# budget_percentage()
-# add_memory()
-# get_next_trip()
-
-# get and post for create trips, add memories(images), budget, itinerary
