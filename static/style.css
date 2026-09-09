@@ -30,7 +30,7 @@ footer {
 
 .memory-image {
     height: 220px;
-    object: cover;
+    object-fit: cover;
 }
 
 .progress {

@@ -2,123 +2,629 @@
 endblock %} {% block content %}
 
 <div class="container py-5">
-  <div class="row justify-content-center mb-5">
-    <div class="col-lg-8 text-center">
-      <p class="text-success fw-semibold mb-2">START YOUR NEXT ADVENTURE</p>
-      <h1 class="display-5 fw-bold mb-3">Plan a new trip</h1>
-      <p class="lead text-muted">
-        Add the basic detials for your trip. For example, add your itinerary,
-        buget, and imagers (memories).
-      </p>
+
+    <!-- Page Header -->
+    <div class="mb-5">
+        <a
+            href="{{ url_for('all_trips') }}"
+            class="text-decoration-none text-muted"
+        >
+            Back to My Trips
+        </a>
+
+        <h1 class="fw-bold mt-4 mb-2">
+            Create a New Trip
+        </h1>
+
+        <p class="text-muted">
+            Plan your destination, activities and budget in one place.
+        </p>
     </div>
-  </div>
-  <div class="row justify-content-center">
-    <div class="col-lg-8">
-      <div class="card border-0 shadow-sm">
-        <div class="card-body p-4 p-lg-5">
-          <form method="POST" action="{{ url_for('create_trip') }}">
-            <div class="mb-4">
-              <label for="destination" class="form-label fw-semibold">
-                Where are you going?
-              </label>
-              <div class="input-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="destination"
-                  name="destination"
-                  placeholder="e.g. Dublin, Ireland"
-                  required
-                />
-              </div>
-              <div class="form-text">
-                Enter the city and country you're planning to visit.
-              </div>
-              <div class="row g-3 mb-4">
-                <div class="col-mb-6">
-                  <label for="start_date" class="form-label fw-semibold"
-                    >Start Date</label
-                  >
-                  <input
-                    type="date"
-                    class="form-control"
-                    id="start_date"
-                    name="start_date"
-                    required
-                  />
+
+
+    <form method="POST" action="{{ url_for('create_trip') }}">
+
+        <!-- Trip Details -->
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-body p-4 p-lg-5">
+
+                <h3 class="fw-bold mb-4">
+                    Trip Details
+                </h3>
+
+                <div class="row g-4">
+
+                    <!-- Destination -->
+                    <div class="col-md-6">
+
+                        <label for="destination" class="form-label fw-semibold">
+                            Destination
+                        </label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="destination"
+                            name="destination"
+                            placeholder="e.g. Paris, France"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Trip Type -->
+                    <div class="col-md-6">
+
+                        <label for="trip_type" class="form-label fw-semibold">
+                            Trip Type
+                        </label>
+
+                        <select
+                            class="form-select"
+                            id="trip_type"
+                            name="trip_type"
+                            required
+                        >
+                            <option value="">Choose a trip type</option>
+                            <option value="City Break">City Break</option>
+                            <option value="Weekend Getaway">Weekend Getaway</option>
+                            <option value="Beach Holiday">Beach Holiday</option>
+                            <option value="Adventure">Adventure</option>
+                            <option value="Road Trip">Road Trip</option>
+                            <option value="Other">Other</option>
+                        </select>
+
+                    </div>
+
+
+                    <!-- Start Date -->
+                    <div class="col-md-6">
+
+                        <label for="start_date" class="form-label fw-semibold">
+                            Start Date
+                        </label>
+
+                        <input
+                            type="date"
+                            class="form-control"
+                            id="start_date"
+                            name="start_date"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- End Date -->
+                    <div class="col-md-6">
+
+                        <label for="end_date" class="form-label fw-semibold">
+                            End Date
+                        </label>
+
+                        <input
+                            type="date"
+                            class="form-control"
+                            id="end_date"
+                            name="end_date"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Budget -->
+                    <div class="col-md-6">
+
+                        <label for="budget" class="form-label fw-semibold">
+                            Trip Budget
+                        </label>
+
+                        <div class="input-group">
+
+                            <span class="input-group-text">
+                                €
+                            </span>
+
+                            <input
+                                type="number"
+                                class="form-control"
+                                id="budget"
+                                name="budget"
+                                placeholder="1500"
+                                min="0"
+                                step="0.01"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Description -->
+                    <div class="col-12">
+
+                        <label for="description" class="form-label fw-semibold">
+                            Trip Description
+                        </label>
+
+                        <textarea
+                            class="form-control"
+                            id="description"
+                            name="description"
+                            rows="4"
+                            placeholder="Tell us about your trip..."
+                            required
+                        ></textarea>
+
+                    </div>
+
                 </div>
-                <div class="col-md-6">
-                  <label for="end_date" class="form-label fw-semibold">
-                    End Date
-                  </label>
-                  <input
-                    type="date"
-                    class="form-control"
-                    id="end_date"
-                    name="end_date"
-                    required
-                  />
-                </div>
-              </div>
-              <div class="mb-4">
-                <label for="budget" class="form-label fw-semibold">
-                  Trip Budget
-                </label>
-                <div class="input-group">
-                  <span class="input-group-text bg-white"> € </span>
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="budget"
-                    name="budget"
-                    placeholder="e.g. 1200"
-                    required
-                  />
-                </div>
-                <div class="form-text">Enter your estimated total budget.</div>
-              </div>
-              <div class="mb-4">
-                <label for="description" class="form-label fw-semibold">
-                  About this trip.
-                </label>
-                <textarea
-                  class="form-control"
-                  id="description"
-                  name="description"
-                  rows="4"
-                  placeholder="What are you going to be doing?"
-                ></textarea>
-              </div>
-              <div class="mb-4">
-                <label for="trip-type" class="form-label fw-semibold">
-                  What type of trip is it?
-                </label>
-                <select class="form-select" id="trip_type" name="trip_type">
-                  <option value="Holiday">Holiday</option>
-                  <option value="City Break">City Break</option>
-                  <option value="Road Trip">Road Trip</option>
-                  <option value="Adventure">Adventure</option>
-                  <option value="Business">Business</option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
-              <div class="d-flex flex-column flex-sm-row gap-3 pt-3">
-                <a
-                  href="{{ url_for('all_trips' )}}"
-                  class="btn btn-outline-secondary btn-lg flex-fill"
-                >
-                  Cancel</a
-                >
-                <button type="submit" class="btn btn-success bt-lg flex-fill">
-                  Create Trip
-                </button>
-              </div>
+
             </div>
-          </form>
+
         </div>
-      </div>
-    </div>
-  </div>
+
+
+        <!-- Activities -->
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-body p-4 p-lg-5">
+
+                <div class="mb-4">
+
+                    <h3 class="fw-bold mb-1">
+                        Activities
+                    </h3>
+
+                    <p class="text-muted mb-0">
+                        Add some activities to your itinerary.
+                    </p>
+
+                </div>
+
+
+                <!-- Activity 1 -->
+                <div class="activity-row border rounded p-3 mb-3">
+
+                    <div class="row g-3">
+
+                        <div class="col-md-2">
+
+                            <label class="form-label fw-semibold">
+                                Day
+                            </label>
+
+                            <input
+                                type="number"
+                                class="form-control"
+                                name="activity_day"
+                                min="1"
+                                placeholder="1"
+                            >
+
+                        </div>
+
+
+                        <div class="col-md-2">
+
+                            <label class="form-label fw-semibold">
+                                Time
+                            </label>
+
+                            <input
+                                type="time"
+                                class="form-control"
+                                name="activity_time"
+                            >
+
+                        </div>
+
+
+                        <div class="col-md-8">
+
+                            <label class="form-label fw-semibold">
+                                Activity
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                name="activity_name"
+                                placeholder="e.g. Visit the Colosseum"
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Activity 2 -->
+                <div class="activity-row border rounded p-3 mb-3">
+
+                    <div class="row g-3">
+
+                        <div class="col-md-2">
+
+                            <label class="form-label fw-semibold">
+                                Day
+                            </label>
+
+                            <input
+                                type="number"
+                                class="form-control"
+                                name="activity_day"
+                                min="1"
+                                placeholder="1"
+                            >
+
+                        </div>
+
+
+                        <div class="col-md-2">
+
+                            <label class="form-label fw-semibold">
+                                Time
+                            </label>
+
+                            <input
+                                type="time"
+                                class="form-control"
+                                name="activity_time"
+                            >
+
+                        </div>
+
+
+                        <div class="col-md-8">
+
+                            <label class="form-label fw-semibold">
+                                Activity
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                name="activity_name"
+                                placeholder="e.g. Lunch in Monti"
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Activity 3 -->
+                <div class="activity-row border rounded p-3">
+
+                    <div class="row g-3">
+
+                        <div class="col-md-2">
+
+                            <label class="form-label fw-semibold">
+                                Day
+                            </label>
+
+                            <input
+                                type="number"
+                                class="form-control"
+                                name="activity_day"
+                                min="1"
+                                placeholder="2"
+                            >
+
+                        </div>
+
+
+                        <div class="col-md-2">
+
+                            <label class="form-label fw-semibold">
+                                Time
+                            </label>
+
+                            <input
+                                type="time"
+                                class="form-control"
+                                name="activity_time"
+                            >
+
+                        </div>
+
+
+                        <div class="col-md-8">
+
+                            <label class="form-label fw-semibold">
+                                Activity
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                name="activity_name"
+                                placeholder="e.g. Visit Vatican Museums"
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Expenses -->
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-body p-4 p-lg-5">
+
+                <div class="mb-4">
+
+                    <h3 class="fw-bold mb-1">
+                        Expenses
+                    </h3>
+
+                    <p class="text-muted mb-0">
+                        Record some planned or known expenses for your trip.
+                    </p>
+
+                </div>
+
+
+                <!-- Expense 1 -->
+                <div class="expense-row border rounded p-3 mb-3">
+
+                    <div class="row g-3">
+
+                        <div class="col-md-3">
+
+                            <label class="form-label fw-semibold">
+                                Category
+                            </label>
+
+                            <select
+                                class="form-select"
+                                name="expense_category"
+                            >
+                                <option value="">Choose category</option>
+                                <option value="Flights">Flights</option>
+                                <option value="Accommodation">Accommodation</option>
+                                <option value="Food">Food</option>
+                                <option value="Activities">Activities</option>
+                                <option value="Transport">Transport</option>
+                                <option value="Other">Other</option>
+                            </select>
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <label class="form-label fw-semibold">
+                                Description
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                name="expense_description"
+                                placeholder="e.g. Return flights"
+                            >
+
+                        </div>
+
+
+                        <div class="col-md-3">
+
+                            <label class="form-label fw-semibold">
+                                Amount
+                            </label>
+
+                            <div class="input-group">
+
+                                <span class="input-group-text">
+                                    €
+                                </span>
+
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    name="expense_amount"
+                                    min="0"
+                                    step="0.01"
+                                    placeholder="350"
+                                >
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Expense 2 -->
+                <div class="expense-row border rounded p-3 mb-3">
+
+                    <div class="row g-3">
+
+                        <div class="col-md-3">
+
+                            <label class="form-label fw-semibold">
+                                Category
+                            </label>
+
+                            <select
+                                class="form-select"
+                                name="expense_category"
+                            >
+                                <option value="">Choose category</option>
+                                <option value="Flights">Flights</option>
+                                <option value="Accommodation">Accommodation</option>
+                                <option value="Food">Food</option>
+                                <option value="Activities">Activities</option>
+                                <option value="Transport">Transport</option>
+                                <option value="Other">Other</option>
+                            </select>
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <label class="form-label fw-semibold">
+                                Description
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                name="expense_description"
+                                placeholder="e.g. Hotel booking"
+                            >
+
+                        </div>
+
+
+                        <div class="col-md-3">
+
+                            <label class="form-label fw-semibold">
+                                Amount
+                            </label>
+
+                            <div class="input-group">
+
+                                <span class="input-group-text">
+                                    €
+                                </span>
+
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    name="expense_amount"
+                                    min="0"
+                                    step="0.01"
+                                    placeholder="500"
+                                >
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Expense 3 -->
+                <div class="expense-row border rounded p-3">
+
+                    <div class="row g-3">
+
+                        <div class="col-md-3">
+
+                            <label class="form-label fw-semibold">
+                                Category
+                            </label>
+
+                            <select
+                                class="form-select"
+                                name="expense_category"
+                            >
+                                <option value="">Choose category</option>
+                                <option value="Flights">Flights</option>
+                                <option value="Accommodation">Accommodation</option>
+                                <option value="Food">Food</option>
+                                <option value="Activities">Activities</option>
+                                <option value="Transport">Transport</option>
+                                <option value="Other">Other</option>
+                            </select>
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <label class="form-label fw-semibold">
+                                Description
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                name="expense_description"
+                                placeholder="e.g. Attraction tickets"
+                            >
+
+                        </div>
+
+
+                        <div class="col-md-3">
+
+                            <label class="form-label fw-semibold">
+                                Amount
+                            </label>
+
+                            <div class="input-group">
+
+                                <span class="input-group-text">
+                                    €
+                                </span>
+
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    name="expense_amount"
+                                    min="0"
+                                    step="0.01"
+                                    placeholder="50"
+                                >
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Form Buttons -->
+        <div class="d-flex justify-content-end gap-3">
+
+            <a
+                href="{{ url_for('all_trips') }}"
+                class="btn btn-outline-secondary px-4"
+            >
+                Cancel
+            </a>
+
+            <button
+                type="submit"
+                class="btn btn-success px-4"
+            >
+                Create Trip
+            </button>
+
+        </div>
+
+    </form>
+
 </div>
+
 
 {% endblock %}
