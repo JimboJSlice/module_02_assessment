@@ -18,6 +18,529 @@
   </div>
 </section>
 
+<!-- Next Adventure -->
+    {% if next_trip %}
 
+    <div class="card border-0 shadow-sm mb-5 overflow-hidden">
+
+        <div class="row g-0 align-items-center">
+
+            <div class="col-lg-5">
+
+                <img
+                    src="{{ url_for('static', filename='images/' + next_trip.image) }}"
+                    class="img-fluid w-100 home-trip-image"
+                    alt="{{ next_trip.destination }}"
+                >
+
+            </div>
+
+            <div class="col-lg-7">
+
+                <div class="card-body p-4 p-lg-5">
+
+                    <span class="badge bg-success mb-3">
+                        Next Adventure
+                    </span>
+
+                    <h2 class="fw-bold mb-2">
+                        {{ next_trip.destination }}
+                    </h2>
+
+                    <p class="text-muted mb-3">
+                        {{ next_trip.start_date }}
+                        —
+                        {{ next_trip.end_date }}
+                    </p>
+
+                    <p class="text-muted">
+                        {{ next_trip.description }}
+                    </p>
+
+                    <a
+                        href="{{ url_for('trip_details', trip_id=next_trip.id) }}"
+                        class="btn btn-success"
+                    >
+                        View Trip
+                        <i class="bi bi-arrow-right ms-1"></i>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% else %}
+
+    <!-- No Upcoming Trip -->
+    <div class="card border-0 shadow-sm mb-5">
+
+        <div class="card-body text-center py-5">
+
+            <div class="empty-trip-icon mb-3">
+                <i class="bi bi-airplane"></i>
+            </div>
+
+            <h3 class="fw-bold">
+                No upcoming adventures
+            </h3>
+
+            <p class="text-muted">
+                Start planning your next trip.
+            </p>
+
+            <a
+                href="{{ url_for('create_trip') }}"
+                class="btn btn-success"
+            >
+                <i class="bi bi-plus-lg me-1"></i>
+                Create a Trip
+            </a>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- My Trips -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+
+        <div>
+            <h2 class="fw-bold mb-1">
+                My Trips
+            </h2>
+
+            <p class="text-muted mb-0">
+                Keep track of your adventures.
+            </p>
+        </div>
+
+        <a
+            href="{{ url_for('all_trips') }}"
+            class="btn btn-outline-success"
+        >
+            View All
+        </a>
+
+    </div>
+
+
+    <div class="row g-4 mb-5">
+
+        {% for trip in trips[:3] %}
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="card trip-card h-100 shadow-sm overflow-hidden">
+
+                <img
+                    src="{{ url_for('static', filename='images/' + trip.image) }}"
+                    class="card-img-top trip-card-image"
+                    alt="{{ trip.destination }}"
+                    style="height: 200px; object-fit: cover;"
+                >
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+
+                        <h5 class="fw-bold mb-0">
+                            {{ trip.destination }}
+                        </h5>
+
+                        {% if trip.status == "Completed" %}
+
+                        <span class="badge bg-secondary">
+                            Completed
+                        </span>
+
+                        {% elif trip.status == "Upcoming" %}
+
+                        <span class="badge bg-success">
+                            Upcoming
+                        </span>
+
+                        {% else %}
+
+                        <span class="badge bg-warning text-dark">
+                            Planning
+                        </span>
+
+                        {% endif %}
+
+                    </div>
+
+                    <p class="text-muted small mb-3">
+                        {{ trip.start_date }} — {{ trip.end_date }}
+                    </p>
+
+                    <a
+                        href="{{ url_for('trip_details', trip_id=trip.id) }}"
+                        class="btn btn-sm btn-outline-success"
+                    >
+                        View Trip
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+
+    <!-- Quick Actions -->
+    <div class="mb-3">
+
+        <h2 class="fw-bold mb-1">
+            Quick Actions
+        </h2>
+
+        <p class="text-muted">
+            Manage your travel plans.
+        </p>
+
+    </div>
+
+    <div class="row g-4 mb-5">
+
+        <div class="col-md-4">
+
+            <a
+                href="{{ url_for('create_trip') }}"
+                class="text-decoration-none"
+            >
+
+                <div class="card h-100 shadow-sm">
+
+                    <div class="card-body p-4">
+
+                        <div class="trip-stat-icon mb-3">
+                            <i class="bi bi-plus-lg"></i>
+                        </div>
+
+                        <h5 class="fw-bold">
+                            Create Trip
+                        </h5>
+
+                        <p class="text-muted mb-0">
+                            Start planning your next adventure.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </a>
+
+        </div>
+
+
+        <div class="col-md-4">
+
+            <a
+                href="{{ url_for('all_trips') }}"
+                class="text-decoration-none"
+            >
+
+                <div class="card h-100 shadow-sm">
+
+                    <div class="card-body p-4">
+
+                        <div class="trip-stat-icon mb-3">
+                            <i class="bi bi-map"></i>
+                        </div>
+
+                        <h5 class="fw-bold">
+                            View My Trips
+                        </h5>
+
+                        <p class="text-muted mb-0">
+                            See all your upcoming and completed trips.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </a>
+
+        </div>
+
+
+        <div class="col-md-4">
+
+            <a
+                href="{{ url_for('about') }}"
+                class="text-decoration-none"
+            >
+
+                <div class="card h-100 shadow-sm">
+
+                    <div class="card-body p-4">
+
+                        <div class="trip-stat-icon mb-3">
+                            <i class="bi bi-info-circle"></i>
+                        </div>
+
+                        <h5 class="fw-bold">
+                            About Roamly
+                        </h5>
+
+                        <p class="text-muted mb-0">
+                            Learn more about the application.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- Travel Overview -->
+    <div class="mb-3">
+
+        <h2 class="fw-bold mb-1">
+            Travel Overview
+        </h2>
+
+        <p class="text-muted">
+            A quick look at your travel activity.
+        </p>
+
+    </div>
+
+
+    <div class="row g-4 mb-5">
+
+        <!-- Total Trips -->
+        <div class="col-md-6 col-lg-3">
+
+            <div class="card border-0 shadow-sm h-100">
+
+                <div class="card-body p-4">
+
+                    <div class="trip-stat-icon mb-3">
+                        <i class="bi bi-airplane"></i>
+                    </div>
+
+                    <p class="text-muted mb-1">
+                        Total Trips
+                    </p>
+
+                    <h3 class="fw-bold mb-0">
+                        {{ trips|length }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Upcoming -->
+        <div class="col-md-6 col-lg-3">
+
+            <div class="card border-0 shadow-sm h-100">
+
+                <div class="card-body p-4">
+
+                    <div class="trip-stat-icon mb-3">
+                        <i class="bi bi-calendar-event"></i>
+                    </div>
+
+                    <p class="text-muted mb-1">
+                        Upcoming
+                    </p>
+
+                    <h3 class="fw-bold mb-0">
+                        {{ upcoming_trips|length }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Activities -->
+        <div class="col-md-6 col-lg-3">
+
+            <div class="card border-0 shadow-sm h-100">
+
+                <div class="card-body p-4">
+
+                    <div class="trip-stat-icon mb-3">
+                        <i class="bi bi-list-check"></i>
+                    </div>
+
+                    <p class="text-muted mb-1">
+                        Activities
+                    </p>
+
+                    <h3 class="fw-bold mb-0">
+                        {{ total_activities }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Memories -->
+        <div class="col-md-6 col-lg-3">
+
+            <div class="card border-0 shadow-sm h-100">
+
+                <div class="card-body p-4">
+
+                    <div class="trip-stat-icon mb-3">
+                        <i class="bi bi-images"></i>
+                    </div>
+
+                    <p class="text-muted mb-1">
+                        Memories
+                    </p>
+
+                    <h3 class="fw-bold mb-0">
+                        {{ total_memories }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Budget Overview -->
+    <div class="card border-0 shadow-sm mb-5">
+
+        <div class="card-body p-4 p-lg-5">
+
+            <div class="row align-items-center">
+
+                <div class="col-lg-7">
+
+                    <h3 class="fw-bold mb-2">
+                        Travel Budget
+                    </h3>
+
+                    <p class="text-muted">
+                        Your spending across all trips.
+                    </p>
+
+                    <div class="progress mb-2" style="height: 10px;">
+
+                        <div
+                            class="progress-bar bg-success"
+                            role="progressbar"
+                            style="width: {{ budget_percentage }}%;"
+                            aria-valuenow="{{ budget_percentage }}"
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                        ></div>
+
+                    </div>
+
+                    <small class="text-muted">
+                        {{ budget_percentage }}% of your total travel budget spent
+                    </small>
+
+                </div>
+
+
+                <div class="col-lg-5 mt-4 mt-lg-0">
+
+                    <div class="row text-center">
+
+                        <div class="col-4">
+
+                            <p class="text-muted small mb-1">
+                                Budget
+                            </p>
+
+                            <h5 class="fw-bold">
+                                €{{ "%.2f"|format(total_budget) }}
+                            </h5>
+
+                        </div>
+
+                        <div class="col-4">
+
+                            <p class="text-muted small mb-1">
+                                Spent
+                            </p>
+
+                            <h5 class="fw-bold">
+                                €{{ "%.2f"|format(total_spent) }}
+                            </h5>
+
+                        </div>
+
+                        <div class="col-4">
+
+                            <p class="text-muted small mb-1">
+                                Remaining
+                            </p>
+
+                            <h5 class="fw-bold text-success">
+                                €{{ "%.2f"|format(remaining_budget) }}
+                            </h5>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Bottom CTA -->
+    <div class="trip-cta rounded-4 p-4 p-lg-5 text-center">
+
+        <h2 class="fw-bold">
+            Ready for your next adventure?
+        </h2>
+
+        <p class="mb-4">
+            Start planning a new trip and make your next journey memorable.
+        </p>
+
+        <a
+            href="{{ url_for('create_trip') }}"
+            class="btn btn-light"
+        >
+            <i class="bi bi-plus-lg me-1"></i>
+            Create New Trip
+        </a>
+
+    </div>
+
+</div>
 
 {% endblock %}

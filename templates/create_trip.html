@@ -3,7 +3,6 @@ endblock %} {% block content %}
 
 <div class="container py-5">
 
-    <!-- Page Header -->
     <div class="mb-5">
         <a
             href="{{ url_for('all_trips') }}"
@@ -24,7 +23,6 @@ endblock %} {% block content %}
 
     <form method="POST" action="{{ url_for('create_trip') }}">
 
-        <!-- Trip Details -->
         <div class="card shadow-sm mb-4">
 
             <div class="card-body p-4 p-lg-5">
@@ -35,7 +33,6 @@ endblock %} {% block content %}
 
                 <div class="row g-4">
 
-                    <!-- Destination -->
                     <div class="col-md-6">
 
                         <label for="destination" class="form-label fw-semibold">
@@ -54,7 +51,6 @@ endblock %} {% block content %}
                     </div>
 
 
-                    <!-- Trip Type -->
                     <div class="col-md-6">
 
                         <label for="trip_type" class="form-label fw-semibold">
@@ -79,7 +75,6 @@ endblock %} {% block content %}
                     </div>
 
 
-                    <!-- Start Date -->
                     <div class="col-md-6">
 
                         <label for="start_date" class="form-label fw-semibold">
@@ -97,7 +92,6 @@ endblock %} {% block content %}
                     </div>
 
 
-                    <!-- End Date -->
                     <div class="col-md-6">
 
                         <label for="end_date" class="form-label fw-semibold">
@@ -115,7 +109,6 @@ endblock %} {% block content %}
                     </div>
 
 
-                    <!-- Budget -->
                     <div class="col-md-6">
 
                         <label for="budget" class="form-label fw-semibold">
@@ -144,7 +137,6 @@ endblock %} {% block content %}
                     </div>
 
 
-                    <!-- Description -->
                     <div class="col-12">
 
                         <label for="description" class="form-label fw-semibold">
@@ -169,7 +161,6 @@ endblock %} {% block content %}
         </div>
 
 
-        <!-- Activities -->
         <div class="card shadow-sm mb-4">
 
             <div class="card-body p-4 p-lg-5">
@@ -187,7 +178,6 @@ endblock %} {% block content %}
                 </div>
 
 
-                <!-- Activity 1 -->
                 <div class="activity-row border rounded p-3 mb-3">
 
                     <div class="row g-3">
@@ -244,7 +234,6 @@ endblock %} {% block content %}
                 </div>
 
 
-                <!-- Activity 2 -->
                 <div class="activity-row border rounded p-3 mb-3">
 
                     <div class="row g-3">
@@ -301,7 +290,6 @@ endblock %} {% block content %}
                 </div>
 
 
-                <!-- Activity 3 -->
                 <div class="activity-row border rounded p-3">
 
                     <div class="row g-3">
@@ -362,7 +350,6 @@ endblock %} {% block content %}
         </div>
 
 
-        <!-- Expenses -->
         <div class="card shadow-sm mb-4">
 
             <div class="card-body p-4 p-lg-5">
@@ -380,7 +367,6 @@ endblock %} {% block content %}
                 </div>
 
 
-                <!-- Expense 1 -->
                 <div class="expense-row border rounded p-3 mb-3">
 
                     <div class="row g-3">
@@ -453,7 +439,6 @@ endblock %} {% block content %}
                 </div>
 
 
-                <!-- Expense 2 -->
                 <div class="expense-row border rounded p-3 mb-3">
 
                     <div class="row g-3">
@@ -525,8 +510,6 @@ endblock %} {% block content %}
 
                 </div>
 
-
-                <!-- Expense 3 -->
                 <div class="expense-row border rounded p-3">
 
                     <div class="row g-3">
