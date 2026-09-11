@@ -58,7 +58,7 @@ trips = [
         "memories": [
             {
                 "title": "Planning the Rome Adventure",
-                "image": "rome-planning.jpg",
+                "image": "rome-planning.jpeg",
                 "note": "Excited to explore the Colosseum and experience authentic Italian food."
             }
         ]

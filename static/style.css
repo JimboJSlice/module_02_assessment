@@ -71,6 +71,12 @@ img {
 }
 
 
+.roamly-logo {
+    height: 45px;
+    width: auto;
+    display: block;
+}
+
 h1,
 h2,
 h3,

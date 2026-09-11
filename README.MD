@@ -15,7 +15,7 @@ The project was developed to demonstrate Python programming, Flask, Jinja templa
 - Personal travel dashboard
 - View upcoming, planning, and completed trips
 - Create new trips
-- Add activities and itinerary details
+- Add activities, itinerary details, and image URLs
 - Track trip expenses and budgets
 - View remaining budget and spending progress
 - Store and display travel memories
