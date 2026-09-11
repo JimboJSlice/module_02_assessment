@@ -4,483 +4,415 @@
 
 {% block content %} 
 
-<div class="container py-5">
+<div class="container py-4 py-lg-5">
 
-    <!-- Back to My Trips -->
-    <div class="mb-4">
-        <a href="{{ url_for('all_trips') }}" class="text-decoration-none text-muted">
-            Back to My Trips
-        </a>
-    </div>
+    {% if trip %}
+
+    <!-- Back link -->
+    <a
+        href="{{ url_for('all_trips') }}"
+        class="back-link"
+    >
+        ← Back to My Trips
+    </a>
 
 
-    <!-- Trip Header -->
-    <div class="card shadow-sm overflow-hidden mb-5">
+    <!-- Trip header -->
+    <section class="trip-header mt-3 mb-5">
 
-        <div class="row g-0">
+        {% if trip.image.startswith('http') %}
 
-            <div class="col-lg-5">
+        <img
+            src="{{ trip.image }}"
+            alt="{{ trip.destination }}"
+            class="trip-detail-image"
+        >
 
-                {% if trip.image.startswith('http') %}
-                <img
-                    src=" {{ trip.image }}"
-                    alt="{{ trip.destination }}"
-                    class="trip-detail-image"
-                >
+        {% else %}
+
+        <img
+            src="{{ url_for('static', filename='images/' + trip.image) }}"
+            alt="{{ trip.destination }}"
+            class="trip-detail-image"
+        >
+
+        {% endif %}
+
+
+        <div class="trip-header-content">
+
+            <span class="status-badge">
+                {{ trip.status }}
+            </span>
+
+            <h1 class="display-5 fw-bold mt-3">
+                {{ trip.destination }}
+            </h1>
+
+            <p class="trip-dates">
+                {{ trip.start_date }} — {{ trip.end_date }}
+            </p>
+
+            <p class="text-muted mb-0">
+                {{ trip.description }}
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <div class="row g-4">
+
+
+        <!-- Itinerary -->
+        <div class="col-12 col-lg-8">
+
+            <section class="content-card">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <p class="eyebrow mb-1">
+                            Your plans
+                        </p>
+
+                        <h2 class="h3 fw-bold mb-0">
+                            Itinerary
+                        </h2>
+
+                    </div>
+
+                    <span class="count-badge">
+                        {{ trip.activities|length }}
+                    </span>
+
+                </div>
+
+
+                {% if trip.activities %}
+
+                <div class="itinerary-list">
+
+                    {% for activity in trip.activities %}
+
+                    <div class="itinerary-item">
+
+                        <div class="itinerary-day">
+                            Day {{ activity.day }}
+                        </div>
+
+                        <div class="itinerary-details">
+
+                            <strong>
+                                {{ activity.activity }}
+                            </strong>
+
+                            <span>
+                                {{ activity.time }}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
 
                 {% else %}
 
-                <img
-                    src="{{ url_for('static', filename='images/' + trip.image) }}"
-                    class="img-fluid w-100 h-100 trip-detail-image"
-                    alt="{{ trip.destination }}"
-                >
+                <p class="text-muted mb-0">
+                    No activities have been added yet.
+                </p>
 
                 {% endif %}
-            </div>
 
-            <div class="col-lg-7">
-                <div class="card-body p-4 p-lg-5">
-
-                    <div class="d-flex justify-content-between align-items-start mb-3">
-
-                        <div>
-                            <span class="badge bg-success mb-2">
-                                {{ trip.status }}
-                            </span>
-
-                            <h1 class="fw-bold mb-2">
-                                {{ trip.destination }}
-                            </h1>
-                        </div>
-
-                        <span class="badge bg-light text-dark border">
-                            {{ trip.trip_type }}
-                        </span>
-
-                    </div>
-
-                    <p class="text-muted mb-4">
-                        {{ trip.description }}
-                    </p>
-
-                    <div class="row g-3">
-
-                        <div class="col-sm-6">
-                            <div class="d-flex align-items-center">
-
-                                <div>
-                                    <small class="text-muted d-block">
-                                        Start Date
-                                    </small>
-                                    <strong>{{ trip.start_date }}</strong>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6">
-                            <div class="d-flex align-items-center">
-
-                                <div>
-                                    <small class="text-muted d-block">
-                                        End Date
-                                    </small>
-                                    <strong>{{ trip.end_date }}</strong>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
+            </section>
 
         </div>
 
-    </div>
 
+        <!-- Budget -->
+        <div class="col-12 col-lg-4">
 
-    <!-- Trip Overview -->
-    <div class="mb-5">
+            <section class="content-card h-100">
 
-        <h2 class="fw-bold mb-4">
-            Trip Overview
-        </h2>
+                <p class="eyebrow mb-1">
+                    Money
+                </p>
 
-        <div class="row g-4">
-
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body d-flex align-items-center">
-
-
-                        <div>
-                            <small class="text-muted">
-                                Activities
-                            </small>
-
-                            <h3 class="fw-bold mb-0">
-                                {{ trip.activities|length }}
-                            </h3>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body d-flex align-items-center">
-
-                        <div>
-                            <small class="text-muted">
-                                Trip Budget
-                            </small>
-
-                            <h3 class="fw-bold mb-0">
-                                €{{ "%.2f"|format(trip.budget) }}
-                            </h3>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body d-flex align-items-center">
-
-                        <div>
-                            <small class="text-muted">
-                                Memories
-                            </small>
-
-                            <h3 class="fw-bold mb-0">
-                                {{ trip.memories|length }}
-                            </h3>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- Itinerary -->
-    <div class="mb-5">
-
-        <div class="d-flex justify-content-between align-items-center mb-4">
-
-            <div>
-                <h2 class="fw-bold mb-1">
-                    Itinerary
+                <h2 class="h3 fw-bold">
+                    Budget
                 </h2>
 
-                <p class="text-muted mb-0">
-                    Your planned activities for this trip.
-                </p>
-            </div>
 
-        </div>
+                <div class="budget-amounts">
 
-
-        <div class="card shadow-sm">
-
-            <div class="card-body p-4">
-
-                {% for activity in trip.activities %}
-
-                    <div class="d-flex align-items-start
-                        {% if not loop.last %}border-bottom pb-3 mb-3{% endif %}">
-
-                        <div class="flex-grow-1">
-
-                            <div class="d-flex justify-content-between align-items-start">
-
-                                <div>
-                                    <span class="badge bg-light text-dark border mb-1">
-                                        Day {{ activity.day }}
-                                    </span>
-
-                                    <h5 class="fw-semibold mb-1">
-                                        {{ activity.activity }}
-                                    </h5>
-                                </div>
-
-                                <span class="text-muted small">
-                                    {{ activity.time }}
-                                </span>
-
-                            </div>
-
-                            {% if activity.completed %}
-                                <span class="text-success small">
-                                    Completed
-                                </span>
-                            {% else %}
-                                <span class="text-muted small">
-                                    Planned
-                                </span>
-                            {% endif %}
-
-                        </div>
-
-                    </div>
-
-                {% endfor %}
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- Budget and Expenses -->
-    <div class="mb-5">
-
-        <div class="d-flex justify-content-between align-items-center mb-4">
-
-            <div>
-                <h2 class="fw-bold mb-1">
-                    Budget & Expenses
-                </h2>
-
-                <p class="text-muted mb-0">
-                    Keep track of your spending for this trip.
-                </p>
-            </div>
-
-        </div>
-
-
-
-
-
-
-        <!-- Budget Summary -->
-        <div class="row g-4 mb-4">
-
-            <div class="col-md-4">
-                <div class="card shadow-sm h-100">
-                    <div class="card-body">
-
-                        <small class="text-muted">
-                            Total Budget
-                        </small>
-
-                        <h3 class="fw-bold mt-2">
+                    <div>
+                        <span>Budget</span>
+                        <strong>
                             €{{ "%.2f"|format(trip.budget) }}
-                        </h3>
-
+                        </strong>
                     </div>
-                </div>
-            </div>
 
-
-            <div class="col-md-4">
-                <div class="card shadow-sm h-100">
-                    <div class="card-body">
-
-                        <small class="text-muted">
-                            Total Spent
-                        </small>
-
-                        <h3 class="fw-bold mt-2">
+                    <div>
+                        <span>Spent</span>
+                        <strong>
                             €{{ "%.2f"|format(total_spent) }}
-                        </h3>
-
+                        </strong>
                     </div>
-                </div>
-            </div>
 
-
-            <div class="col-md-4">
-                <div class="card shadow-sm h-100">
-                    <div class="card-body">
-
-                        <small class="text-muted">
-                            Remaining
-                        </small>
-
-                        <h3 class="fw-bold mt-2
-                            {% if remaining < 0 %}text-danger{% else %}text-success{% endif %}">
+                    <div>
+                        <span>Remaining</span>
+                        <strong>
                             €{{ "%.2f"|format(remaining) }}
-                        </h3>
-
+                        </strong>
                     </div>
-                </div>
-            </div>
-
-        </div>
-
-
-        <!-- Budget Progress -->
-        <div class="card shadow-sm mb-4">
-
-            <div class="card-body p-4">
-
-                <div class="d-flex justify-content-between mb-2">
-
-                    <span class="fw-semibold">
-                        Budget Used
-                    </span>
-
-                    <span class="text-muted">
-                        {{ budget_percentage }}%
-                    </span>
 
                 </div>
 
-                <div class="progress" style="height: 10px;">
+
+                <div
+                    class="progress mt-4"
+                    role="progressbar"
+                    aria-label="Trip budget used"
+                    aria-valuenow="{{ budget_percentage }}"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                >
 
                     <div
-                        class="progress-bar bg-success"
-                        role="progressbar"
-                        style="width: {{ budget_percentage }}%;"
-                        aria-valuenow="{{ budget_percentage }}"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
+                        class="progress-bar"
+                        style="width: {{ budget_percentage }}%"
                     ></div>
 
                 </div>
 
-            </div>
+
+                <p class="small text-muted mt-2 mb-0">
+                    {{ budget_percentage }}% of your budget has been spent.
+                </p>
+
+            </section>
 
         </div>
 
 
-        <!-- Expense List -->
-        <div class="card shadow-sm">
+        <!-- Expenses -->
+        <div class="col-12">
 
-            <div class="card-body p-4">
+            <section class="content-card">
 
-                <h5 class="fw-bold mb-3">
+                <p class="eyebrow mb-1">
+                    Spending
+                </p>
+
+                <h2 class="h3 fw-bold">
                     Expenses
-                </h5>
+                </h2>
+
+
+                {% if trip.expenses %}
 
                 <div class="table-responsive">
 
-                    <table class="table align-middle mb-0">
+                    <table class="table align-middle">
+
+                        <caption class="visually-hidden">
+                            Expenses for {{ trip.destination }}
+                        </caption>
 
                         <thead>
+
                             <tr>
-                                <th>Category</th>
-                                <th>Description</th>
-                                <th class="text-end">Amount</th>
+                                <th scope="col">
+                                    Category
+                                </th>
+
+                                <th scope="col">
+                                    Description
+                                </th>
+
+                                <th scope="col" class="text-end">
+                                    Amount
+                                </th>
                             </tr>
+
                         </thead>
+
 
                         <tbody>
 
                             {% for expense in trip.expenses %}
 
-                                <tr>
+                            <tr>
 
-                                    <td>
-                                        <span class="badge bg-light text-dark border">
-                                            {{ expense.category }}
-                                        </span>
-                                    </td>
+                                <td>
+                                    {{ expense.category }}
+                                </td>
 
-                                    <td>
-                                        {{ expense.description }}
-                                    </td>
+                                <td>
+                                    {{ expense.description }}
+                                </td>
 
-                                    <td class="text-end fw-semibold">
-                                        €{{ "%.2f"|format(expense.amount) }}
-                                    </td>
+                                <td class="text-end fw-semibold">
+                                    €{{ "%.2f"|format(expense.amount) }}
+                                </td>
 
-                                </tr>
+                            </tr>
 
                             {% endfor %}
 
                         </tbody>
 
+
+                        <tfoot>
+
+                            <tr>
+
+                                <th
+                                    scope="row"
+                                    colspan="2"
+                                >
+                                    Total Spent
+                                </th>
+
+                                <td class="text-end">
+                                    €{{ "%.2f"|format(total_spent) }}
+                                </td>
+
+                            </tr>
+
+                        </tfoot>
+
                     </table>
 
                 </div>
 
-            </div>
+                {% else %}
+
+                <p class="text-muted mb-0">
+                    No expenses have been added yet.
+                </p>
+
+                {% endif %}
+
+            </section>
 
         </div>
 
-    </div>
 
+        <!-- Memories -->
+        <div class="col-12">
 
-    <!-- Memories -->
-    <div class="mb-5">
+            <section class="content-card">
 
-        <div class="d-flex justify-content-between align-items-center mb-4">
+                <p class="eyebrow mb-1">
+                    Remember
+                </p>
 
-            <div>
-                <h2 class="fw-bold mb-1">
+                <h2 class="h3 fw-bold">
                     Memories
                 </h2>
 
-                <p class="text-muted mb-0">
-                    Moments and memories from this trip.
-                </p>
-            </div>
+                {% if trip.memories %}
 
-        </div>
+                <div class="row g-4">
+
+                    {% for memory in trip.memories %}
+
+                    <div class="col-12 col-md-6">
+
+                        <article class="memory-card">
+
+                            {% if memory.image.startswith('http') %}
+
+                            <img
+                                src="{{ memory.image }}"
+                                alt="{{ memory.title }}"
+                                class="memory-image"
+                            >
+
+                            {% else %}
+
+                            <img
+                                src="{{ url_for('static', filename='images/' + memory.image) }}"
+                                alt="{{ memory.title }}"
+                                class="memory-image"
+                            >
+
+                            {% endif %}
 
 
-        <div class="row g-4">
+                            <div class="p-4">
 
-            {% for memory in trip.memories %}
+                                <h3 class="h5 fw-bold">
+                                    {{ memory.title }}
+                                </h3>
 
-                <div class="col-md-6">
+                                <p class="text-muted mb-0">
+                                    {{ memory.note }}
+                                </p>
 
-                    <div class="card shadow-sm h-100 overflow-hidden">
+                            </div>
 
-                        <img
-                            src="{{ url_for('static', filename='images/' + memory.image) }}"
-                            class="card-img-top memory-image"
-                            alt="{{ memory.title }}"
-                        >
-
-                        <div class="card-body p-4">
-
-                            <h5 class="fw-bold">
-                                {{ memory.title }}
-                            </h5>
-
-                            <p class="text-muted mb-0">
-                                {{ memory.note }}
-                            </p>
-
-                        </div>
+                        </article>
 
                     </div>
 
+                    {% endfor %}
+
                 </div>
 
-            {% endfor %}
+                {% else %}
+
+                <div class="empty-state">
+
+                    <p class="text-muted mb-0">
+                        No memories have been added to this trip yet.
+                    </p>
+
+                </div>
+
+                {% endif %}
+
+            </section>
 
         </div>
 
     </div>
 
 
-    <!-- Bottom Navigation -->
-    <div class="text-center pt-3">
+    {% else %}
+
+    <!-- Trip not found -->
+    <section class="empty-state large-empty-state">
+
+        <p class="eyebrow">
+            Sorry
+        </p>
+
+        <h1 class="h2 fw-bold">
+            Trip not found
+        </h1>
+
+        <p class="text-muted">
+            We could not find the trip you were looking for.
+        </p>
 
         <a
             href="{{ url_for('all_trips') }}"
-            class="btn btn-outline-success px-4"
+            class="btn btn-roamly"
         >
             Back to My Trips
         </a>
 
-    </div>
+    </section>
+
+    {% endif %}
 
 </div>
 
 {% endblock %}
-

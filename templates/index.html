@@ -4,16 +4,15 @@
 
 <div class="container py-4 py-lg-5">
 
-
     <!-- Welcome -->
-    <section class="welcome-section mb-4 mb-lg-5">
+    <section class="welcome-section mb-5">
 
         <p class="eyebrow mb-2">
-            Your travel dashboard
+            Welcome back
         </p>
 
-        <h1 class="display-6 fw-bold">
-            Welcome back, {{ user_name }}.
+        <h1 class="display-6 fw-bold mb-2">
+            Good morning, {{ user_name }} 👋
         </h1>
 
         <p class="lead text-muted mb-0">
@@ -24,26 +23,20 @@
 
 
     <!-- Next Adventure -->
-    {% if next_trip %}
-
-    <section class="mb-4 mb-lg-5">
+    <section class="mb-5">
 
         <div class="section-heading">
-            <div>
-                <p class="eyebrow mb-1">
-                    Coming up
-                </p>
-
-                <h2 class="h3 fw-bold">
-                    Next Adventure
-                </h2>
-            </div>
+            <h2 class="h3 fw-bold mb-0">
+                Next Adventure
+            </h2>
         </div>
 
 
-        <div class="card next-trip-card border-0 overflow-hidden">
+        {% if next_trip %}
 
-            <div class="row g-0 align-items-stretch">
+        <div class="next-trip-card overflow-hidden">
+
+            <div class="row g-0">
 
                 <div class="col-lg-5">
 
@@ -70,28 +63,24 @@
 
                 <div class="col-lg-7">
 
-                    <div class="card-body p-4 p-lg-5">
+                    <div class="p-4 p-lg-5">
 
-                        <span class="status-badge">
+                        <span class="status-badge mb-3">
                             {{ next_trip.status }}
                         </span>
 
-                        <h2 class="h3 fw-bold mt-3">
+                        <h3 class="h2 fw-bold mt-2">
                             {{ next_trip.destination }}
-                        </h2>
+                        </h3>
+
+                        <p class="trip-dates">
+                            {{ next_trip.start_date }}
+                            –
+                            {{ next_trip.end_date }}
+                        </p>
 
                         <p class="text-muted">
                             {{ next_trip.description }}
-                        </p>
-
-                        <p class="mb-1">
-                            <strong>Dates</strong>
-                        </p>
-
-                        <p class="text-muted">
-                            {{ next_trip.start_date }}
-                            to
-                            {{ next_trip.end_date }}
                         </p>
 
                         <a
@@ -109,114 +98,38 @@
 
         </div>
 
-    </section>
+        {% else %}
 
-    {% endif %}
+        <div class="empty-state">
+            <h3 class="h5 fw-bold">
+                No upcoming trips
+            </h3>
 
+            <p class="text-muted">
+                Start planning your next adventure.
+            </p>
 
-    <!-- Quick Actions -->
-    <section class="mb-4 mb-lg-5">
-
-        <div class="section-heading">
-
-            <div>
-                <p class="eyebrow mb-1">
-                    Get started
-                </p>
-
-                <h2 class="h3 fw-bold">
-                    Quick Actions
-                </h2>
-            </div>
-
+            <a
+                href="{{ url_for('create_trip') }}"
+                class="btn btn-roamly"
+            >
+                Create a Trip
+            </a>
         </div>
 
-
-        <div class="row g-3">
-
-            <div class="col-12 col-sm-6 col-lg-4">
-
-                <a
-                    href="{{ url_for('create_trip') }}"
-                    class="quick-action-card"
-                >
-
-                    <span class="quick-action-symbol">
-                        +
-                    </span>
-
-                    <span>
-                        <strong>Create a Trip</strong>
-                        <small>Start planning your next adventure.</small>
-                    </span>
-
-                </a>
-
-            </div>
-
-
-            <div class="col-12 col-sm-6 col-lg-4">
-
-                <a
-                    href="{{ url_for('all_trips') }}"
-                    class="quick-action-card"
-                >
-
-                    <span class="quick-action-symbol">
-                        →
-                    </span>
-
-                    <span>
-                        <strong>View My Trips</strong>
-                        <small>See all your planned adventures.</small>
-                    </span>
-
-                </a>
-
-            </div>
-
-
-            <div class="col-12 col-sm-6 col-lg-4">
-
-                <a
-                    href="{{ url_for('about') }}"
-                    class="quick-action-card"
-                >
-
-                    <span class="quick-action-symbol">
-                        ?
-                    </span>
-
-                    <span>
-                        <strong>About Roamly</strong>
-                        <small>Learn more about the project.</small>
-                    </span>
-
-                </a>
-
-            </div>
-
-        </div>
+        {% endif %}
 
     </section>
 
 
     <!-- My Trips -->
-    <section class="mb-4 mb-lg-5">
+    <section class="mb-5">
 
         <div class="section-heading">
 
-            <div>
-
-                <p class="eyebrow mb-1">
-                    Your adventures
-                </p>
-
-                <h2 class="h3 fw-bold">
-                    My Trips
-                </h2>
-
-            </div>
+            <h2 class="h3 fw-bold mb-0">
+                My Trips
+            </h2>
 
             <a
                 href="{{ url_for('all_trips') }}"
@@ -232,9 +145,9 @@
 
             {% for trip in trips[:3] %}
 
-            <div class="col-12 col-md-6 col-lg-4">
+            <div class="col-md-6 col-lg-4">
 
-                <article class="card trip-card h-100 border-0">
+                <article class="trip-card h-100">
 
                     {% if trip.image.startswith('http') %}
 
@@ -255,15 +168,27 @@
                     {% endif %}
 
 
-                    <div class="card-body p-4">
+                    <div class="p-4">
 
-                        <span class="status-badge">
+                        <span class="status-badge
+                            {% if trip.status == 'Planning' %}
+                                planning
+                            {% elif trip.status == 'Completed' %}
+                                completed
+                            {% endif %}
+                        ">
                             {{ trip.status }}
                         </span>
 
-                        <h3 class="h4 fw-bold mt-3">
+                        <h3 class="h5 fw-bold mt-3">
                             {{ trip.destination }}
                         </h3>
+
+                        <p class="trip-dates mb-2">
+                            {{ trip.start_date }}
+                            –
+                            {{ trip.end_date }}
+                        </p>
 
                         <p class="text-muted">
                             {{ trip.description }}
@@ -289,22 +214,78 @@
     </section>
 
 
-    <!-- Travel Overview -->
-    <section class="mb-4 mb-lg-5">
+    <!-- Quick Actions -->
+    <section class="mb-5">
 
         <div class="section-heading">
 
-            <div>
+            <h2 class="h3 fw-bold mb-0">
+                Quick Actions
+            </h2>
 
-                <p class="eyebrow mb-1">
-                    At a glance
-                </p>
+        </div>
 
-                <h2 class="h3 fw-bold">
-                    Travel Overview
-                </h2>
+
+        <div class="row g-3">
+
+            <div class="col-md-6">
+
+                <a
+                    href="{{ url_for('create_trip') }}"
+                    class="quick-action-card"
+                >
+
+                    <span class="quick-action-symbol">
+                        +
+                    </span>
+
+                    <span>
+                        <strong>Create a Trip</strong>
+                        <small>
+                            Start planning your next adventure
+                        </small>
+                    </span>
+
+                </a>
 
             </div>
+
+
+            <div class="col-md-6">
+
+                <a
+                    href="{{ url_for('all_trips') }}"
+                    class="quick-action-card"
+                >
+
+                    <span class="quick-action-symbol">
+                        →
+                    </span>
+
+                    <span>
+                        <strong>View My Trips</strong>
+                        <small>
+                            See all your travel plans
+                        </small>
+                    </span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Travel Overview -->
+    <section class="mb-5">
+
+        <div class="section-heading">
+
+            <h2 class="h3 fw-bold mb-0">
+                Travel Overview
+            </h2>
 
         </div>
 
@@ -383,49 +364,71 @@
     </section>
 
 
-    <!-- Budget -->
-    <section>
+    <!-- Travel Budget -->
+    <section class="mb-5">
 
         <div class="budget-summary-card">
 
-            <div class="row align-items-center g-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
 
-                <div class="col-lg-7">
+                <div>
 
                     <p class="eyebrow mb-1">
-                        Travel budget
+                        Travel Budget
                     </p>
 
-                    <h2 class="h3 fw-bold">
+                    <h2 class="h3 fw-bold mb-0">
                         Your overall spending
                     </h2>
 
-                    <p class="text-muted">
-                        You have spent €{{ "%.2f"|format(total_spent) }}
-                        of your €{{ "%.2f"|format(total_budget) }}
-                        total travel budget.
-                    </p>
+                </div>
 
-                    <div
-                        class="progress"
-                        role="progressbar"
-                        aria-label="Overall travel budget used"
-                        aria-valuenow="{{ budget_percentage }}"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                    >
+            </div>
 
-                        <div
-                            class="progress-bar"
-                            style="width: {{ budget_percentage }}%"
-                        ></div>
+
+            <div class="progress mb-3">
+
+                <div
+                    class="progress-bar"
+                    role="progressbar"
+                    style="width: {{ budget_percentage }}%"
+                    aria-valuenow="{{ budget_percentage }}"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                ></div>
+
+            </div>
+
+
+            <p class="text-muted mb-4">
+                You have spent
+                <strong>€{{ "%.2f"|format(total_spent) }}</strong>
+                of your
+                <strong>€{{ "%.2f"|format(total_budget) }}</strong>
+                total travel budget.
+            </p>
+
+
+            <div class="row g-3">
+
+                <div class="col-6">
+
+                    <div class="budget-number">
+
+                        <span>
+                            Total Budget
+                        </span>
+
+                        <strong>
+                            €{{ "%.2f"|format(total_budget) }}
+                        </strong>
 
                     </div>
 
                 </div>
 
 
-                <div class="col-lg-5">
+                <div class="col-6">
 
                     <div class="budget-number">
 
@@ -444,6 +447,27 @@
             </div>
 
         </div>
+
+    </section>
+
+
+    <!-- Bottom CTA -->
+    <section class="about-project text-center">
+
+        <h2 class="h3 fw-bold">
+            Ready for your next adventure?
+        </h2>
+
+        <p class="text-muted">
+            Create a new trip and start planning.
+        </p>
+
+        <a
+            href="{{ url_for('create_trip') }}"
+            class="btn btn-roamly"
+        >
+            Create a Trip
+        </a>
 
     </section>
 

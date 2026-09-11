@@ -1,619 +1,449 @@
 {% extends "base.html" %} {% block title %}<title>Plan a new trip</title>{%
 endblock %} {% block content %}
 
-<div class="container py-5">
+<div class="container py-4 py-lg-5">
 
-    <div class="mb-5">
-        <a
-            href="{{ url_for('all_trips') }}"
-            class="text-decoration-none text-muted"
-        >
-            Back to My Trips
-        </a>
+    <div class="form-page-header mb-4">
 
-        <h1 class="fw-bold mt-4 mb-2">
+        <p class="eyebrow mb-2">
+            Start planning
+        </p>
+
+        <h1 class="display-6 fw-bold">
             Create a New Trip
         </h1>
 
         <p class="text-muted">
-            Plan your destination, activities and budget in one place.
+            Add the details of your next adventure.
         </p>
+
     </div>
 
 
-    <form method="POST" action="{{ url_for('create_trip') }}">
+    <form
+        method="POST"
+        action="{{ url_for('create_trip') }}"
+    >
 
-        <div class="card shadow-sm mb-4">
+        <!-- Trip Details -->
+        <section class="form-section mb-4">
 
-            <div class="card-body p-4 p-lg-5">
+            <h2 class="h4 fw-bold">
+                Trip Details
+            </h2>
 
-                <h3 class="fw-bold mb-4">
-                    Trip Details
-                </h3>
-
-                <div class="row g-4">
-
-                    <div class="col-md-6">
-
-                        <label for="destination" class="form-label fw-semibold">
-                            Destination
-                        </label>
-
-                        <input
-                            type="text"
-                            class="form-control"
-                            id="destination"
-                            name="destination"
-                            placeholder="e.g. Paris, France"
-                            required
-                        >
-
-                    </div>
+            <p class="text-muted">
+                Tell us where you're going and when.
+            </p>
 
 
-                    <div class="col-md-6">
+            <div class="row g-3">
 
-                        <label for="trip_type" class="form-label fw-semibold">
-                            Trip Type
-                        </label>
+                <!-- Destination -->
+                <div class="col-12">
 
-                        <select
-                            class="form-select"
-                            id="trip_type"
-                            name="trip_type"
-                            required
-                        >
-                            <option value="">Choose a trip type</option>
-                            <option value="City Break">City Break</option>
-                            <option value="Weekend Getaway">Weekend Getaway</option>
-                            <option value="Beach Holiday">Beach Holiday</option>
-                            <option value="Adventure">Adventure</option>
-                            <option value="Road Trip">Road Trip</option>
-                            <option value="Other">Other</option>
-                        </select>
+                    <label
+                        for="destination"
+                        class="form-label"
+                    >
+                        Destination
+                    </label>
 
-                    </div>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="destination"
+                        name="destination"
+                        placeholder="e.g. Rome, Italy"
+                        required
+                    >
 
-
-                    <div class="col-md-6">
-
-                        <label for="start_date" class="form-label fw-semibold">
-                            Start Date
-                        </label>
-
-                        <input
-                            type="date"
-                            class="form-control"
-                            id="start_date"
-                            name="start_date"
-                            required
-                        >
-
-                    </div>
+                </div>
 
 
-                    <div class="col-md-6">
+                <!-- Trip type -->
+                <div class="col-12">
 
-                        <label for="end_date" class="form-label fw-semibold">
-                            End Date
-                        </label>
+                    <label
+                        for="trip_type"
+                        class="form-label"
+                    >
+                        Trip Type
+                    </label>
 
-                        <input
-                            type="date"
-                            class="form-control"
-                            id="end_date"
-                            name="end_date"
-                            required
-                        >
+                    <select
+                        class="form-select"
+                        id="trip_type"
+                        name="trip_type"
+                        required
+                    >
 
-                    </div>
+                        <option value="">
+                            Select a trip type
+                        </option>
 
+                        <option value="City Break">
+                            City Break
+                        </option>
 
-                    <div class="col-md-6">
+                        <option value="Weekend Getaway">
+                            Weekend Getaway
+                        </option>
 
-                        <label for="budget" class="form-label fw-semibold">
-                            Trip Budget
-                        </label>
+                        <option value="Beach Holiday">
+                            Beach Holiday
+                        </option>
 
-                        <div class="input-group">
+                        <option value="Adventure">
+                            Adventure
+                        </option>
 
-                            <span class="input-group-text">
-                                €
-                            </span>
+                        <option value="Other">
+                            Other
+                        </option>
 
-                            <input
-                                type="number"
-                                class="form-control"
-                                id="budget"
-                                name="budget"
-                                placeholder="1500"
-                                min="0"
-                                step="0.01"
-                                required
-                            >
+                    </select>
 
-                        </div>
-
-                    </div>
+                </div>
 
 
-                    <div class="col-12">
+                <!-- Start date -->
+                <div class="col-12 col-sm-6">
 
-                        <label for="description" class="form-label fw-semibold">
-                            Trip Description
-                        </label>
+                    <label
+                        for="start_date"
+                        class="form-label"
+                    >
+                        Start Date
+                    </label>
 
-                        <textarea
-                            class="form-control"
-                            id="description"
-                            name="description"
-                            rows="4"
-                            placeholder="Tell us about your trip..."
-                            required
-                        ></textarea>
+                    <input
+                        type="date"
+                        class="form-control"
+                        id="start_date"
+                        name="start_date"
+                        required
+                    >
 
-                    </div>
+                </div>
 
-                    <div class="mb-3">
-                        <label for="image_url" class="form-label">
-                            Trip Image URL
-                        </label>
-                        <input type="url"
+
+                <!-- End date -->
+                <div class="col-12 col-sm-6">
+
+                    <label
+                        for="end_date"
+                        class="form-label"
+                    >
+                        End Date
+                    </label>
+
+                    <input
+                        type="date"
+                        class="form-control"
+                        id="end_date"
+                        name="end_date"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Budget -->
+                <div class="col-12">
+
+                    <label
+                        for="budget"
+                        class="form-label"
+                    >
+                        Budget (€)
+                    </label>
+
+                    <input
+                        type="number"
+                        class="form-control"
+                        id="budget"
+                        name="budget"
+                        min="0"
+                        step="0.01"
+                        placeholder="1500.00"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Description -->
+                <div class="col-12">
+
+                    <label
+                        for="description"
+                        class="form-label"
+                    >
+                        Description
+                    </label>
+
+                    <textarea
+                        class="form-control"
+                        id="description"
+                        name="description"
+                        rows="4"
+                        placeholder="Describe your trip..."
+                        required
+                    ></textarea>
+
+                </div>
+
+
+                <!-- Image URL -->
+                <div class="col-12">
+
+                    <label
+                        for="image_url"
+                        class="form-label"
+                    >
+                        Trip Image URL
+                        <span class="text-muted">
+                            (optional)
+                        </span>
+                    </label>
+
+                    <input
+                        type="url"
                         class="form-control"
                         id="image_url"
                         name="image_url"
                         placeholder="https://example.com/image.jpg"
-                        >
-                        <div class="form-text">
-                            Paste a URL to an image for this trip.
-                        </div>
+                    >
+
+                    <div class="form-text">
+                        Paste a direct link to an image for your trip.
                     </div>
 
                 </div>
 
             </div>
 
-        </div>
+        </section>
 
 
-        <div class="card shadow-sm mb-4">
+        <!-- Activities -->
+        <section class="form-section mb-4">
 
-            <div class="card-body p-4 p-lg-5">
+            <h2 class="h4 fw-bold">
+                Activities
+            </h2>
 
-                <div class="mb-4">
-
-                    <h3 class="fw-bold mb-1">
-                        Activities
-                    </h3>
-
-                    <p class="text-muted mb-0">
-                        Add some activities to your itinerary.
-                    </p>
-
-                </div>
+            <p class="text-muted">
+                Add some activities you would like to do.
+            </p>
 
 
-                <div class="activity-row border rounded p-3 mb-3">
+            {% for i in range(3) %}
 
-                    <div class="row g-3">
+            <div class="activity-form-row">
 
-                        <div class="col-md-2">
+                <div>
 
-                            <label class="form-label fw-semibold">
-                                Day
-                            </label>
+                    <label
+                        for="activity_day_{{ i }}"
+                        class="form-label"
+                    >
+                        Day
+                    </label>
 
-                            <input
-                                type="number"
-                                class="form-control"
-                                name="activity_day"
-                                min="1"
-                                placeholder="1"
-                            >
-
-                        </div>
-
-
-                        <div class="col-md-2">
-
-                            <label class="form-label fw-semibold">
-                                Time
-                            </label>
-
-                            <input
-                                type="time"
-                                class="form-control"
-                                name="activity_time"
-                            >
-
-                        </div>
-
-
-                        <div class="col-md-8">
-
-                            <label class="form-label fw-semibold">
-                                Activity
-                            </label>
-
-                            <input
-                                type="text"
-                                class="form-control"
-                                name="activity_name"
-                                placeholder="e.g. Visit the Colosseum"
-                            >
-
-                        </div>
-
-                    </div>
+                    <input
+                        type="number"
+                        class="form-control"
+                        id="activity_day_{{ i }}"
+                        name="activity_day"
+                        min="1"
+                        placeholder="1"
+                    >
 
                 </div>
 
 
-                <div class="activity-row border rounded p-3 mb-3">
+                <div>
 
-                    <div class="row g-3">
+                    <label
+                        for="activity_time_{{ i }}"
+                        class="form-label"
+                    >
+                        Time
+                    </label>
 
-                        <div class="col-md-2">
-
-                            <label class="form-label fw-semibold">
-                                Day
-                            </label>
-
-                            <input
-                                type="number"
-                                class="form-control"
-                                name="activity_day"
-                                min="1"
-                                placeholder="1"
-                            >
-
-                        </div>
-
-
-                        <div class="col-md-2">
-
-                            <label class="form-label fw-semibold">
-                                Time
-                            </label>
-
-                            <input
-                                type="time"
-                                class="form-control"
-                                name="activity_time"
-                            >
-
-                        </div>
-
-
-                        <div class="col-md-8">
-
-                            <label class="form-label fw-semibold">
-                                Activity
-                            </label>
-
-                            <input
-                                type="text"
-                                class="form-control"
-                                name="activity_name"
-                                placeholder="e.g. Lunch in Monti"
-                            >
-
-                        </div>
-
-                    </div>
+                    <input
+                        type="time"
+                        class="form-control"
+                        id="activity_time_{{ i }}"
+                        name="activity_time"
+                    >
 
                 </div>
 
 
-                <div class="activity-row border rounded p-3">
+                <div class="activity-name-field">
 
-                    <div class="row g-3">
+                    <label
+                        for="activity_name_{{ i }}"
+                        class="form-label"
+                    >
+                        Activity
+                    </label>
 
-                        <div class="col-md-2">
-
-                            <label class="form-label fw-semibold">
-                                Day
-                            </label>
-
-                            <input
-                                type="number"
-                                class="form-control"
-                                name="activity_day"
-                                min="1"
-                                placeholder="2"
-                            >
-
-                        </div>
-
-
-                        <div class="col-md-2">
-
-                            <label class="form-label fw-semibold">
-                                Time
-                            </label>
-
-                            <input
-                                type="time"
-                                class="form-control"
-                                name="activity_time"
-                            >
-
-                        </div>
-
-
-                        <div class="col-md-8">
-
-                            <label class="form-label fw-semibold">
-                                Activity
-                            </label>
-
-                            <input
-                                type="text"
-                                class="form-control"
-                                name="activity_name"
-                                placeholder="e.g. Visit Vatican Museums"
-                            >
-
-                        </div>
-
-                    </div>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="activity_name_{{ i }}"
+                        name="activity_name"
+                        placeholder="e.g. Visit the Colosseum"
+                    >
 
                 </div>
 
             </div>
 
-        </div>
+            {% endfor %}
+
+        </section>
 
 
-        <div class="card shadow-sm mb-4">
+        <!-- Expenses -->
+        <section class="form-section mb-4">
 
-            <div class="card-body p-4 p-lg-5">
+            <h2 class="h4 fw-bold">
+                Expenses
+            </h2>
 
-                <div class="mb-4">
-
-                    <h3 class="fw-bold mb-1">
-                        Expenses
-                    </h3>
-
-                    <p class="text-muted mb-0">
-                        Record some planned or known expenses for your trip.
-                    </p>
-
-                </div>
+            <p class="text-muted">
+                Add some expected or planned expenses.
+            </p>
 
 
-                <div class="expense-row border rounded p-3 mb-3">
+            {% for i in range(3) %}
 
-                    <div class="row g-3">
+            <div class="expense-form-row">
 
-                        <div class="col-md-3">
+                <div>
 
-                            <label class="form-label fw-semibold">
-                                Category
-                            </label>
+                    <label
+                        for="expense_category_{{ i }}"
+                        class="form-label"
+                    >
+                        Category
+                    </label>
 
-                            <select
-                                class="form-select"
-                                name="expense_category"
-                            >
-                                <option value="">Choose category</option>
-                                <option value="Flights">Flights</option>
-                                <option value="Accommodation">Accommodation</option>
-                                <option value="Food">Food</option>
-                                <option value="Activities">Activities</option>
-                                <option value="Transport">Transport</option>
-                                <option value="Other">Other</option>
-                            </select>
+                    <select
+                        class="form-select"
+                        id="expense_category_{{ i }}"
+                        name="expense_category"
+                    >
 
-                        </div>
+                        <option value="Flights">
+                            Flights
+                        </option>
 
+                        <option value="Accommodation">
+                            Accommodation
+                        </option>
 
-                        <div class="col-md-6">
+                        <option value="Food">
+                            Food
+                        </option>
 
-                            <label class="form-label fw-semibold">
-                                Description
-                            </label>
+                        <option value="Activities">
+                            Activities
+                        </option>
 
-                            <input
-                                type="text"
-                                class="form-control"
-                                name="expense_description"
-                                placeholder="e.g. Return flights"
-                            >
+                        <option value="Transport">
+                            Transport
+                        </option>
 
-                        </div>
+                        <option value="Other">
+                            Other
+                        </option>
 
-
-                        <div class="col-md-3">
-
-                            <label class="form-label fw-semibold">
-                                Amount
-                            </label>
-
-                            <div class="input-group">
-
-                                <span class="input-group-text">
-                                    €
-                                </span>
-
-                                <input
-                                    type="number"
-                                    class="form-control"
-                                    name="expense_amount"
-                                    min="0"
-                                    step="0.01"
-                                    placeholder="350"
-                                >
-
-                            </div>
-
-                        </div>
-
-                    </div>
+                    </select>
 
                 </div>
 
 
-                <div class="expense-row border rounded p-3 mb-3">
+                <div>
 
-                    <div class="row g-3">
+                    <label
+                        for="expense_description_{{ i }}"
+                        class="form-label"
+                    >
+                        Description
+                    </label>
 
-                        <div class="col-md-3">
-
-                            <label class="form-label fw-semibold">
-                                Category
-                            </label>
-
-                            <select
-                                class="form-select"
-                                name="expense_category"
-                            >
-                                <option value="">Choose category</option>
-                                <option value="Flights">Flights</option>
-                                <option value="Accommodation">Accommodation</option>
-                                <option value="Food">Food</option>
-                                <option value="Activities">Activities</option>
-                                <option value="Transport">Transport</option>
-                                <option value="Other">Other</option>
-                            </select>
-
-                        </div>
-
-
-                        <div class="col-md-6">
-
-                            <label class="form-label fw-semibold">
-                                Description
-                            </label>
-
-                            <input
-                                type="text"
-                                class="form-control"
-                                name="expense_description"
-                                placeholder="e.g. Hotel booking"
-                            >
-
-                        </div>
-
-
-                        <div class="col-md-3">
-
-                            <label class="form-label fw-semibold">
-                                Amount
-                            </label>
-
-                            <div class="input-group">
-
-                                <span class="input-group-text">
-                                    €
-                                </span>
-
-                                <input
-                                    type="number"
-                                    class="form-control"
-                                    name="expense_amount"
-                                    min="0"
-                                    step="0.01"
-                                    placeholder="500"
-                                >
-
-                            </div>
-
-                        </div>
-
-                    </div>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="expense_description_{{ i }}"
+                        name="expense_description"
+                        placeholder="e.g. Hotel booking"
+                    >
 
                 </div>
 
-                <div class="expense-row border rounded p-3">
 
-                    <div class="row g-3">
+                <div>
 
-                        <div class="col-md-3">
+                    <label
+                        for="expense_amount_{{ i }}"
+                        class="form-label"
+                    >
+                        Amount (€)
+                    </label>
 
-                            <label class="form-label fw-semibold">
-                                Category
-                            </label>
-
-                            <select
-                                class="form-select"
-                                name="expense_category"
-                            >
-                                <option value="">Choose category</option>
-                                <option value="Flights">Flights</option>
-                                <option value="Accommodation">Accommodation</option>
-                                <option value="Food">Food</option>
-                                <option value="Activities">Activities</option>
-                                <option value="Transport">Transport</option>
-                                <option value="Other">Other</option>
-                            </select>
-
-                        </div>
-
-
-                        <div class="col-md-6">
-
-                            <label class="form-label fw-semibold">
-                                Description
-                            </label>
-
-                            <input
-                                type="text"
-                                class="form-control"
-                                name="expense_description"
-                                placeholder="e.g. Attraction tickets"
-                            >
-
-                        </div>
-
-
-                        <div class="col-md-3">
-
-                            <label class="form-label fw-semibold">
-                                Amount
-                            </label>
-
-                            <div class="input-group">
-
-                                <span class="input-group-text">
-                                    €
-                                </span>
-
-                                <input
-                                    type="number"
-                                    class="form-control"
-                                    name="expense_amount"
-                                    min="0"
-                                    step="0.01"
-                                    placeholder="50"
-                                >
-
-                            </div>
-
-                        </div>
-
-                    </div>
+                    <input
+                        type="number"
+                        class="form-control"
+                        id="expense_amount_{{ i }}"
+                        name="expense_amount"
+                        min="0"
+                        step="0.01"
+                        placeholder="250.00"
+                    >
 
                 </div>
 
             </div>
 
-        </div>
+            {% endfor %}
+
+        </section>
 
 
-        <!-- Form Buttons -->
-        <div class="d-flex justify-content-end gap-3">
+        <!-- Memories -->
+        <section class="form-section mb-4">
+
+            <h2 class="h4 fw-bold">
+                Memories
+            </h2>
+
+            <p class="text-muted mb-0">
+                Moments and memories from this trip.
+            </p>
+
+        </section>
+
+
+        <!-- Form buttons -->
+        <div class="form-actions">
 
             <a
                 href="{{ url_for('all_trips') }}"
-                class="btn btn-outline-secondary px-4"
+                class="btn btn-outline-secondary"
             >
                 Cancel
             </a>
 
             <button
                 type="submit"
-                class="btn btn-success px-4"
+                class="btn btn-roamly"
             >
                 Create Trip
             </button>
@@ -623,6 +453,5 @@ endblock %} {% block content %}
     </form>
 
 </div>
-
 
 {% endblock %}
