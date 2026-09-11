@@ -20,11 +20,23 @@
         <div class="row g-0">
 
             <div class="col-lg-5">
+
+                {% if trip.image.startswith('http') %}
+                <img
+                    src=" {{ trip.image }}"
+                    alt="{{ trip.destination }}"
+                    class="trip-detail-image"
+                >
+
+                {% else %}
+
                 <img
                     src="{{ url_for('static', filename='images/' + trip.image) }}"
                     class="img-fluid w-100 h-100 trip-detail-image"
                     alt="{{ trip.destination }}"
                 >
+
+                {% endif %}
             </div>
 
             <div class="col-lg-7">

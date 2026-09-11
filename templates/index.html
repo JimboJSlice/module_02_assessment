@@ -27,12 +27,22 @@
 
             <div class="col-lg-5">
 
+                {% if next_trip.image.startswith('http') %}
+                <img
+                    src="{{ next_trip.image }}"
+                    alt="{{ next_trip.destination }}"
+                    class="trip-detail-image"
+                >
+
+                {% else %}
+
                 <img
                     src="{{ url_for('static', filename='images/' + next_trip.image) }}"
-                    class="img-fluid w-100 home-trip-image"
+                    class="img-fluid w-100 h-100 trip-detail-image"
                     alt="{{ next_trip.destination }}"
                 >
 
+                {% endif %}
             </div>
 
             <div class="col-lg-7">
@@ -138,12 +148,24 @@
 
             <div class="card trip-card h-100 shadow-sm overflow-hidden">
 
+
+            {% if trip.image.startswith('http') %}
+                <img
+                    src="{{ trip.image }}"
+                    alt="{{ trip.destination }}"
+                    class="trip-detail-image"
+                >
+
+            {% else %}
+
                 <img
                     src="{{ url_for('static', filename='images/' + trip.image) }}"
                     class="card-img-top trip-card-image"
                     alt="{{ trip.destination }}"
                     style="height: 200px; object-fit: cover;"
                 >
+
+            {% endif %}
 
                 <div class="card-body">
 
@@ -410,10 +432,6 @@
             <div class="card border-0 shadow-sm h-100">
 
                 <div class="card-body p-4">
-
-                    <div class="trip-stat-icon mb-3">
-                        <i class="bi bi-images"></i>
-                    </div>
 
                     <p class="text-muted mb-1">
                         Memories

@@ -127,11 +127,22 @@
                 <div class="card trip-card h-100 overflow-hidden">
 
                     <!-- Trip Image -->
-                    <img
-                        src="{{ url_for('static', filename='images/' + trip.image) }}"
-                        class="card-img-top trip-card-image"
-                        alt="{{ trip.destination }}"
-                    >
+                {% if trip.image.startswith('http') %}
+                <img
+                    src=" {{ trip.image }}"
+                    alt="{{ trip.destination }}"
+                    class="trip-detail-image"
+                >
+
+                {% else %}
+
+                <img
+                    src="{{ url_for('static', filename='images/' + trip.image) }}"
+                    class="img-fluid w-100 h-100 trip-detail-image"
+                    alt="{{ trip.destination }}"
+                >
+
+                {% endif %}
 
                     <div class="card-body p-4">
 

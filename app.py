@@ -160,6 +160,7 @@ def create_trip():
         budget = request.form["budget"]
         description = request.form["description"]
         trip_type = request.form["trip_type"]
+        image_url = request.form.get("image_url")
 
         # Get activity fields
         activity_days = request.form.getlist("activity_day")
@@ -215,7 +216,7 @@ def create_trip():
             "description": description,
             "trip_type": trip_type,
             "status": "Planning",
-            "image": "default-trip.jpg",
+            "image": image_url or "default-trip.jpg",
             "activities": activities,
             "expenses": expenses,
             "memories": []
