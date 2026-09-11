@@ -16,35 +16,204 @@
     {% block title %}{% endblock %}
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg border-bottom">
-      <div class="container">
-              <a class="navbar-brand" href="{{ url_for('home') }}">
-        <img
-          src="{{ url_for('static', filename='images/roamly-logo.png') }}"
-          alt="Roamly Logo"
-          class="roamly-logo"
-        >
-    </a>
-        <ul class="navbar-nav mx-auto mb-2">
-            <li class="nav-item"><a class="nav-link" href="{{ url_for('all_trips') }}">My Trips</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ url_for('create_trip') }}">Create Trip</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ url_for('about') }}">About</a></li>
-        </ul>
-        </nav>
-    </div>
-    <main>{% block content %} {% endblock %}</main>
-    <footer class="border-top bg-white mt-5">
-        <div class="container py-4">
-          <div class="text-center text-muted small">
-            &copy; 2026 All rights reserved.
-          </div>
-        </div>
-    </footer>
-  </body>
+ <!-- Navigation -->
+    <nav
+        class="navbar navbar-expand-lg bg-white border-bottom"
+        aria-label="Main navigation"
+    >
 
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-    crossorigin="anonymous"
-  ></script>
+        <div class="container">
+
+            <!-- Logo -->
+            <a
+                class="navbar-brand"
+                href="{{ url_for('home') }}"
+                aria-label="Roamly home"
+            >
+
+                <img
+                    src="{{ url_for('static', filename='images/roamly-logo.png') }}"
+                    alt="Roamly"
+                    class="roamly-logo"
+                >
+
+            </a>
+
+
+            <!-- Mobile menu button -->
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#mainNavbar"
+                aria-controls="mainNavbar"
+                aria-expanded="false"
+                aria-label="Open navigation menu"
+            >
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+
+            <!-- Navigation links -->
+            <div
+                class="collapse navbar-collapse"
+                id="mainNavbar"
+            >
+
+                <ul class="navbar-nav mx-auto">
+
+                    <li class="nav-item">
+                        <a
+                            class="nav-link {% if request.endpoint == 'home' %}active{% endif %}"
+                            href="{{ url_for('home') }}"
+                        >
+                            Home
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a
+                            class="nav-link {% if request.endpoint == 'all_trips' %}active{% endif %}"
+                            href="{{ url_for('all_trips') }}"
+                        >
+                            My Trips
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a
+                            class="nav-link {% if request.endpoint == 'about' %}active{% endif %}"
+                            href="{{ url_for('about') }}"
+                        >
+                            About
+                        </a>
+                    </li>
+
+                </ul>
+
+
+                <!-- User menu -->
+                <div class="dropdown mt-3 mt-lg-0">
+
+                    <button
+                        class="btn user-button dropdown-toggle"
+                        type="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                    >
+                        Yoni
+                    </button>
+
+                    <ul class="dropdown-menu dropdown-menu-end">
+
+                        <li>
+                            <a
+                                class="dropdown-item"
+                                href="{{ url_for('home') }}"
+                            >
+                                Dashboard
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                class="dropdown-item"
+                                href="{{ url_for('create_trip') }}"
+                            >
+                                Create Trip
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- Flash messages -->
+    <div class="container mt-3">
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+                {% for category, message in messages %}
+
+                    <div
+                        class="alert alert-{{ category }} alert-dismissible fade show"
+                        role="alert"
+                    >
+
+                        {{ message }}
+
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="alert"
+                            aria-label="Close"
+                        ></button>
+
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+    </div>
+
+
+    <!-- Main content -->
+    <main id="main-content">
+
+        {% block content %}{% endblock %}
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <div class="row gy-3 align-items-center">
+
+                <div class="col-md-6">
+
+                    <p class="mb-0">
+                        <strong>Roamly</strong>
+                        — Plan. Explore. Remember.
+                    </p>
+
+                </div>
+
+                <div class="col-md-6 text-md-end">
+
+                    <p class="mb-0">
+                        &copy; 2026 Roamly
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    ></script>
+
+    {% block extra_js %}{% endblock %}
+
+</body>
 </html>
