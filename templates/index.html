@@ -31,9 +31,6 @@
             </h2>
         </div>
 
-
-        {% if next_trip %}
-
         <div class="next-trip-card overflow-hidden">
 
             <div class="row g-0">
@@ -98,27 +95,6 @@
 
         </div>
 
-        {% else %}
-
-        <div class="empty-state">
-            <h3 class="h5 fw-bold">
-                No upcoming trips
-            </h3>
-
-            <p class="text-muted">
-                Start planning your next adventure.
-            </p>
-
-            <a
-                href="{{ url_for('create_trip') }}"
-                class="btn btn-roamly"
-            >
-                Create a Trip
-            </a>
-        </div>
-
-        {% endif %}
-
     </section>
 
 
@@ -143,12 +119,13 @@
 
         <div class="row g-4">
 
+            <!-- Display only up to three trips on the dashboard-->
             {% for trip in trips[:3] %}
 
             <div class="col-md-6 col-lg-4">
 
                 <article class="trip-card h-100">
-
+                    <!-- Use an external image URL or use the image from the static folder-->
                     {% if trip.image.startswith('http') %}
 
                     <img
@@ -169,7 +146,7 @@
 
 
                     <div class="p-4">
-
+                        <!--Add a different class depending on the status-->
                         <span class="status-badge
                             {% if trip.status == 'Planning' %}
                                 planning

@@ -19,7 +19,7 @@ endblock %} {% block content %}
 
     </div>
 
-
+    <!--Sends the details to create_trip route-->
     <form
         method="POST"
         action="{{ url_for('create_trip') }}"
@@ -238,7 +238,7 @@ endblock %} {% block content %}
                 Add some activities you would like to do.
             </p>
 
-
+            <!--This is to handle the multiple entries in the same field names-->
             {% for i in range(3) %}
 
             <div class="activity-form-row">
