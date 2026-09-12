@@ -61,7 +61,19 @@ Budget calculations, including total spending, remaining budget, and budget perc
 - Add trip search and filtering
 - Add interactive maps and travel information
 
-**Roamly — Plan. Explore. Remember.**
+## Deployment
+
+The application is deployed using Render.
+
+1. Upload/push the project to Github
+2. Create a new Web Service on Render
+3. Connect Github repository
+4. Install dependencies: 
+    pip isntall -r requirements.txt
+5. Use the following start command:
+    gunicorn app:app
+6. Add the SECRET_KEY environment variable
+7. Deploy the application
 
 ## Live Site
 
